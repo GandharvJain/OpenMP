@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 			f >> b[i * n + j];
 
 	double average = 0;
-	omp_set_num_threads(2048);		//Changes Max treads, aka OMP_NUM_THREADS
+	omp_set_num_threads(2048);		//Changes Max threads, aka OMP_NUM_THREADS
 
 	for (int t = 0; t < 10; ++t) {
 
