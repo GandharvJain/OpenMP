@@ -1,3 +1,3 @@
-#OpenMP Programs
-* Matrix Multiplication
-Parallelizing matrix multiplication algorithm using OpenMP
+# OpenMP Programs
+* Matrix Multiplication: \
+Parallelized matrix multiplication algorithm using OpenMP
