@@ -145,15 +145,15 @@ int main()
 	double runtimeR_FFT, runtimeR_IFFT, runtimeI_FFT, runtimeI_IFFT;
 
 	runtimeR_FFT = omp_get_wtime();
-	// w_r_init(n, 0);
-	// fft_recursive(a);
+	w_r_init(n, 0);
+	fft_recursive(a);
 	runtimeR_FFT = omp_get_wtime() - runtimeR_FFT;
 	// print(a, "Recursive FFT: ", true);
 
 	w_R.clear();
 
 	runtimeR_IFFT = omp_get_wtime();
-	// ifft_recursive(a);
+	ifft_recursive(a);
 	runtimeR_IFFT = omp_get_wtime() - runtimeR_IFFT;
 	// print(a, "Recursive Inverse-FFT: ", false);
 
