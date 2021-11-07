@@ -1,6 +1,6 @@
 import numpy as np
 
-n = 2048
+n = 256
 a = np.random.randint(0,9,(n,n)).astype('uint8')
 b = np.random.randint(0,9,(n,n)).astype('uint8')
 c = a.dot(b)
