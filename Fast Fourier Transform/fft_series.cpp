@@ -145,30 +145,30 @@ int main()
 	double runtimeR_FFT, runtimeR_IFFT, runtimeI_FFT, runtimeI_IFFT;
 
 	runtimeR_FFT = omp_get_wtime();
-	w_r_init(n, 0);
-	fft_recursive(a);
+	// w_r_init(n, 0);
+	// fft_recursive(a);
 	runtimeR_FFT = omp_get_wtime() - runtimeR_FFT;
-	print(a, "Recursive FFT: ", true);
+	// print(a, "Recursive FFT: ", true);
 
 	w_R.clear();
 
 	runtimeR_IFFT = omp_get_wtime();
-	ifft_recursive(a);
+	// ifft_recursive(a);
 	runtimeR_IFFT = omp_get_wtime() - runtimeR_IFFT;
-	print(a, "Recursive Inverse-FFT: ", false);
+	// print(a, "Recursive Inverse-FFT: ", false);
 
 	runtimeI_FFT = omp_get_wtime();
 	fft_iterative(a, 0);
 	runtimeI_FFT = omp_get_wtime() - runtimeI_FFT;
-	print(a, "Iterative FFT: ", true);
+	// print(a, "Iterative FFT: ", true);
 
 	runtimeI_IFFT = omp_get_wtime();
 	ifft_iterative(a);
 	runtimeI_IFFT = omp_get_wtime() - runtimeI_IFFT;
-	print(a, "Iterative Inverse-FFT: ", false);
+	// print(a, "Iterative Inverse-FFT: ", false);
 
 	check(a, b);
-	cout << "\nRuntimes :-" << fixed << "\n";
+	cout << "\nRuntime :-" << fixed << "\n";
 	cout << "Python FFT            :" << runtimePy << "\n";
 	cout << "Recursive FFT         :" << runtimeR_FFT << "\n";
 	cout << "Recursive Inverse FFT :" << runtimeR_IFFT << "\n";
@@ -178,4 +178,4 @@ int main()
 }
 
 // Run with:
-// g++ fft_series.cpp -o fft_series.o -fopenmp && python3 test.py 1048576 > in.txt && ./fft_series.o
+// g++ fft_series.cpp -o fft_series.o -fopenmp && python3 test.py 4 > in.txt && cat in.txt && ./fft_series.o
