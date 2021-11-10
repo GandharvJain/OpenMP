@@ -2,7 +2,7 @@
 #include <omp.h>
 using namespace std;
 #define NUM_THREADS 8
-#define TRIALS 5
+#define TRIALS 1
 typedef complex<long double> cmplx;
 long double pi = acos(-1);
 

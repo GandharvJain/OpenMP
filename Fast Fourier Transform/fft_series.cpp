@@ -148,24 +148,24 @@ int main()
 	w_r_init(n, 0);
 	fft_recursive(a);
 	runtimeR_FFT = omp_get_wtime() - runtimeR_FFT;
-	// print(a, "Recursive FFT: ", true);
+	print(a, "Recursive FFT: ", true);
 
 	w_R.clear();
 
 	runtimeR_IFFT = omp_get_wtime();
 	ifft_recursive(a);
 	runtimeR_IFFT = omp_get_wtime() - runtimeR_IFFT;
-	// print(a, "Recursive Inverse-FFT: ", false);
+	print(a, "Recursive Inverse-FFT: ", false);
 
 	runtimeI_FFT = omp_get_wtime();
 	fft_iterative(a, 0);
 	runtimeI_FFT = omp_get_wtime() - runtimeI_FFT;
-	// print(a, "Iterative FFT: ", true);
+	print(a, "Iterative FFT: ", true);
 
 	runtimeI_IFFT = omp_get_wtime();
 	ifft_iterative(a);
 	runtimeI_IFFT = omp_get_wtime() - runtimeI_IFFT;
-	// print(a, "Iterative Inverse-FFT: ", false);
+	print(a, "Iterative Inverse-FFT: ", false);
 
 	check(a, b);
 	cout << "\nRuntime :-" << fixed << "\n";
