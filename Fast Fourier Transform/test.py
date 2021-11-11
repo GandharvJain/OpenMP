@@ -11,10 +11,12 @@ start_time = time.time()
 transform = pyfftw.interfaces.scipy_fft.fft(a, n)
 
 print("%s\n" % (time.time() - start_time))
-# r = transform.real
-# i = transform.imag
-# transform = [tuple([round(r[j], 3), round(-1*i[j], 3)]) for j in range(len(transform))]
 
 print(n)
 print(' '.join(map(str, a)))
-# print(*transform)
+if n <= 16:
+	r = transform.real
+	i = transform.imag
+	transform = [tuple([round(r[j], 3), round(-1*i[j], 3)]) for j in range(len(transform))]
+	print("\nPython FFT:")
+	print(*transform)

@@ -108,7 +108,9 @@ void ifft_iterative(vector<cmplx> &a){
 }
 
 void print(const vector<cmplx> & v, string message, bool imag) {
-	cout /*<< fixed*/ << setprecision(9) << message << "\n";
+	if (v.size() > 16)
+		return;
+	cout /*<< fixed*/ << setprecision(6) << message << "\n";
 	for (int i = 0; i < v.size(); ++i) {
 		if (imag)
 			cout << "(" << v[i].real() << ", " << v[i].imag() << ")" << " ";

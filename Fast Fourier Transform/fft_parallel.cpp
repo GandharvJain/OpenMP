@@ -15,14 +15,26 @@ int bitRev(int in, int log_n) {
 	return out;
 }
 
+void print(const vector<cmplx> & v, string message, bool imag) {
+	if (v.size() > 16)
+		return;
+	cout /*<< fixed*/ << setprecision(6) << message << "\n";
+	for (int i = 0; i < v.size(); ++i) {
+		if (imag)
+			cout << "(" << v[i].real() << ", " << v[i].imag() << ")" << " ";
+		else
+			cout << v[i].real() << " ";
+	}
+	cout << "\n";
+}
 
-void fft_iterative(vector<cmplx> &in, int inverse) {
+vector<cmplx> fft_iterative(vector<cmplx> &in, int inverse) {
 	int n = in.size();
 	int log_n = log2(n);
 	vector<cmplx> a(n);
 	vector<vector<cmplx>> w_I(log_n+1);
 
-	#pragma omp parallel shared(in, a) firstprivate(n, log_n, inverse)
+	#pragma omp parallel shared(in, a, w_I) firstprivate(n, log_n, inverse)
 	{
 		// int p = omp_get_num_threads(), tid = omp_get_thread_num();
 		#pragma omp for schedule(static)
@@ -47,9 +59,9 @@ void fft_iterative(vector<cmplx> &in, int inverse) {
 			w_I[log_j] = w_I_j;
 		}
 
-		#pragma omp for schedule(static)
 		for (int log_m = 1; log_m <= log_n; log_m++) {
 			int m = (1<<log_m);
+			#pragma omp for schedule(static)
 			for (int i = 0; i < n; i+=m) {
 				for (int j = 0; j < m/2; ++j) {
 					cmplx t1 = a[i+j], t2 = w_I[log_m][j]*a[i+j+m/2];
@@ -59,26 +71,18 @@ void fft_iterative(vector<cmplx> &in, int inverse) {
 			}
 		}
 	}
+	return a;
 }
 
 void ifft_iterative(vector<cmplx> &a){
-	fft_iterative(a, 1);
+	a = fft_iterative(a, 1);
 	int n = a.size();
 	#pragma omp parallel for schedule(static)
 	for (int i = 0; i < n; ++i)
 		a[i] /= n;
 }
 
-void print(const vector<cmplx> & v, string message, bool imag) {
-	cout /*<< fixed*/ << setprecision(9) << message << "\n";
-	for (int i = 0; i < v.size(); ++i) {
-		if (imag)
-			cout << "(" << v[i].real() << ", " << v[i].imag() << ")" << " ";
-		else
-			cout << v[i].real() << " ";
-	}
-	cout << "\n";
-}
+
 
 void check(const vector<cmplx> &a, const vector<cmplx> &b) {
 	double epsilon = 0.00001;
@@ -110,12 +114,12 @@ int main()
 	double avg1 = 0;
 	for (int i = 0; i < TRIALS; ++i) {
 		runtimeI_FFT = omp_get_wtime();
-		fft_iterative(a, 0);
+		a = fft_iterative(a, 0);
 		runtimeI_FFT = omp_get_wtime() - runtimeI_FFT;
 		avg1 += runtimeI_FFT;
 	}
 	avg1 /= TRIALS;
-	// print(a, "Iterative FFT: ", true);
+	print(a, "Iterative FFT: ", true);
 
 	double avg2 = 0;
 	for (int i = 0; i < TRIALS; ++i) {
@@ -125,7 +129,7 @@ int main()
 		avg2 += runtimeI_FFT;
 	}
 	avg2 /= TRIALS;
-	// print(a, "Iterative Inverse-FFT: ", false);
+	print(a, "Iterative Inverse-FFT: ", false);
 
 	check(a, b);
 	cout << "\nRuntime (Average):-" << fixed << "\n";
