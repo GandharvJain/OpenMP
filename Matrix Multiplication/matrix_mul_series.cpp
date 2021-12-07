@@ -1,6 +1,6 @@
 #include <omp.h>
 #include <bits/stdc++.h>
-#define TRIALS 100
+#define TRIALS 5
 using namespace std;
   
 int main(int argc, char* argv[]) {

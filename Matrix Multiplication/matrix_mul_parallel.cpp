@@ -1,6 +1,7 @@
 #include <omp.h>
 #include <bits/stdc++.h>
-#define TRIALS 100
+#define TRIALS 5
+#define NUM_THREADS 8
 using namespace std;
   
 int main(int argc, char* argv[]) {
@@ -24,7 +25,7 @@ int main(int argc, char* argv[]) {
 			f >> b[i * n + j];
 
 	double average = 0;
-	omp_set_num_threads(8);		//Changes Max threads, aka OMP_NUM_THREADS
+	omp_set_num_threads(NUM_THREADS);		//Changes Max threads, aka OMP_NUM_THREADS
 
 	for (int t = 0; t < TRIALS; ++t) {
 
