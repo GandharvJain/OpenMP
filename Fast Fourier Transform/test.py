@@ -8,7 +8,7 @@ decimal = 2
 a = np.random.randint(1, 99, size=(n)).astype('uint8')
 
 start_time = time.time()
-transform = pyfftw.interfaces.scipy_fft.fft(a, n)
+transform = pyfftw.interfaces.scipy_fftpack.fft(a, n)
 
 print("%s\n" % (time.time() - start_time))
 
